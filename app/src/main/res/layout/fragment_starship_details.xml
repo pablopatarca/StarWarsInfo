@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/title_details_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_margin="30dp"
+        android:layout_marginBottom="10dp" />
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp">
+
+            <TextView
+                android:id="@+id/model_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="@string/model" />
+
+            <TextView
+                android:id="@+id/model_tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:layout_marginStart="20dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp">
+
+            <TextView
+                android:id="@+id/manufacturer_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:text="@string/manufacturer" />
+
+            <TextView
+                android:id="@+id/manufacturer_tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:layout_marginStart="20dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp">
+
+            <TextView
+                android:id="@+id/cost_in_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:text="@string/cost_in" />
+
+            <TextView
+                android:id="@+id/cost_in_tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:layout_marginStart="20dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp">
+
+            <TextView
+                android:id="@+id/length_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:text="@string/length" />
+
+            <TextView
+                android:id="@+id/length_tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:layout_marginStart="20dp"/>
+        </TableRow>
+
+    </TableLayout>
+</LinearLayout>
