@@ -15,12 +15,15 @@ import kotlinx.android.synthetic.main.item.view.*
 class ItemAdapter(val items : ArrayList<String>, val context: Context?) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
     private var listener: (() -> Unit)? = null
+    private var position: Int = 0
 
     fun setListener(listener: (() -> Unit)?) {
         this.listener = listener
     }
 
-
+    fun getPosition() : Int {
+        return position
+    }
 
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
@@ -43,6 +46,7 @@ class ItemAdapter(val items : ArrayList<String>, val context: Context?) : Recycl
         holder.nameBtn?.text = items.get(position)
 
         holder.nameBtn?.setOnClickListener  {
+            this.position = position
             listener?.invoke()
         }
     }
