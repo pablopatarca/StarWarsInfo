@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.fragment_planets.*
 
 class PlanetsFragment : Fragment() {
 
+    val TYPE_TAG = "fragment_type"
+
     //TODO retrieve data from remote
     val planetsList = arrayListOf(
         "Alderaan",
@@ -34,7 +36,7 @@ class PlanetsFragment : Fragment() {
             args.putInt("position", itemAdapter.getPosition())
             val fragment = PlanetDetailsFragment()
             fragment.arguments = args
-            fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(TYPE_TAG)?.commit()
         }
         recyclerView.apply {
             layoutManager = LinearLayoutManager(activity)
