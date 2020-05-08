@@ -18,6 +18,7 @@ import retrofit2.Response
 class PlanetsFragment : Fragment() {
 
     val TYPE_TAG = "fragment_type"
+    var planetsList = LinkedHashMap<String,String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_planets, container, false)
@@ -26,21 +27,29 @@ class PlanetsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        makeCall("https://swapi.dev/api/planets/")
+    }
 
+    fun makeCall(next: String)
+    {
         val request = APIClient.buildService(APIInterface::class.java)
-        val call = request.getPlanets()
+        val call = request.getNames(next)
 
         call.enqueue(object : Callback<Names_Data> {
             override fun onResponse(call: Call<Names_Data>, response: Response<Names_Data>) {
                 if (response.isSuccessful) {
                     val resource = response.body()
                     val resultsList = resource?.results
-                    var planetsList = LinkedHashMap<String,String>()
+                    var next = resource?.next
                     resultsList?.forEach {
                         planetsList.put(it.name, it.url)
                     }
 
-                    buildRecyclerView(planetsList)
+                    if(!next.isNullOrEmpty()) {
+                        makeCall(next)
+                    }
+                    else
+                        buildRecyclerView(planetsList)
                 }
                 else {
                     Log.e("myapp", "SOMETHING WENT WRONG")

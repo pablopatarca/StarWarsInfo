@@ -24,8 +24,6 @@ class PersonDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var url = arguments?.getString("url")
-        url = url?.replace("http://swapi.dev/api/people/", "")
-        //elimina tutto dall'url, tranne l'indice
 
         val request = APIClient.buildService(APIInterface::class.java)
         val call = url?.let { request.getPerson(it) }

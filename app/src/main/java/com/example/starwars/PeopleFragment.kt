@@ -20,6 +20,7 @@ import retrofit2.Response
 class PeopleFragment : Fragment() {
 
     val TYPE_TAG = "fragment_type"
+    var peopleList = LinkedHashMap<String,String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_people, container, false)
@@ -28,23 +29,31 @@ class PeopleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        makeCall("https://swapi.dev/api/people/")
+    }
 
 
 
+    fun makeCall(next: String)
+    {
         val request = APIClient.buildService(APIInterface::class.java)
-        val call = request.getPeople()
+        val call = request.getNames(next)
 
         call.enqueue(object : Callback<Names_Data> {
             override fun onResponse(call: Call<Names_Data>, response: Response<Names_Data>) {
                 if (response.isSuccessful) {
                     val resource = response.body()
                     val resultsList = resource?.results
-                    var peopleList = LinkedHashMap<String,String>()
+                    var next = resource?.next
                     resultsList?.forEach {
                         peopleList.put(it.name, it.url)
                     }
 
-                    buildRecyclerView(peopleList)
+                    if(!next.isNullOrEmpty()) {
+                        makeCall(next)
+                    }
+                    else
+                        buildRecyclerView(peopleList)
                 }
                 else {
                     Log.e("myapp", "SOMETHING WENT WRONG")
@@ -55,8 +64,6 @@ class PeopleFragment : Fragment() {
             }
         })
     }
-
-
 
 
     fun buildRecyclerView(peopleList: LinkedHashMap<String,String>)
