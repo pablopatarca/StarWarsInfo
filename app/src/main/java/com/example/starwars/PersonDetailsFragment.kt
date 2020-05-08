@@ -37,6 +37,8 @@ class PersonDetailsFragment : Fragment() {
                     mass_tv_content.text = resource?.mass.toString()
                     hair_color_tv_content.text = resource?.hair_color
                     skin_color_tv_content.text = resource?.skin_color
+
+                    progress_circular.visibility = View.GONE
                 }
                 else {
                     Log.e("myapp", "SOMETHING WENT WRONG")

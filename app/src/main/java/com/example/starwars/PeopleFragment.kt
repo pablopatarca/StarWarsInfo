@@ -81,5 +81,7 @@ class PeopleFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             adapter = itemAdapter
         }
+
+        progress_circular.visibility = View.GONE
     }
 }

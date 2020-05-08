@@ -76,5 +76,7 @@ class StarshipsFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             adapter = itemAdapter
         }
+
+        progress_circular.visibility = View.GONE
     }
 }

@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_person_details.*
-import kotlinx.android.synthetic.main.fragment_person_details.title_details_tv
 import kotlinx.android.synthetic.main.fragment_starship_details.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,6 +35,8 @@ class StarshipDetailsFragment : Fragment() {
                     manufacturer_tv_content.text = resource?.manufacturer
                     cost_in_tv_content.text = resource?.cost_in_credits.toString()
                     length_tv_content.text = resource?.length.toString()
+
+                    progress_circular.visibility = View.GONE
                 }
                 else {
                     Log.e("myapp", "SOMETHING WENT WRONG")
