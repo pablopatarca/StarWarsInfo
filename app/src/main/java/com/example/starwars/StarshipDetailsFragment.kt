@@ -1,6 +1,7 @@
 package com.example.starwars
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,18 +9,13 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_person_details.*
 import kotlinx.android.synthetic.main.fragment_person_details.title_details_tv
 import kotlinx.android.synthetic.main.fragment_starship_details.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class StarshipDetailsFragment : Fragment() {
 
     val DETAILS_TAG = "fragment_details"
-
-    //TODO retrieve data from remote
-    val starshipsList = arrayListOf(
-        Starship("Executor", "Exec", "Kuat", 1143, 19000),
-        Starship("Sentinel-class landing craft", "Exec", "Kuat", 1000, 20000),
-        Starship("Death Star", "Exec", "Kuat", 2001, 19000),
-        Starship("Millennium Falcon", "Exec", "Kuat", 1952, 15000)
-    )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_starship_details, container, false)
@@ -27,14 +23,31 @@ class StarshipDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val position = arguments?.getInt("position")
-        val starship = position?.let { starshipsList.get(it) }
+        var position = arguments?.getInt("position")
+        position = position?.plus(1)        //incrementa di 1 la posizione perchè gli indici di un json array partono da 1
+        //TODO alcuni indici mancano (es. 1, 4...)
 
-        title_details_tv.text = starship?.name
-        model_tv_content.text = starship?.model
-        manufacturer_tv_content.text = starship?.manufacturer
-        cost_in_tv_content.text = starship?.costIn.toString()
-        length_tv_content.text = starship?.length.toString()
 
+        val request = APIClient.buildService(APIInterface::class.java)
+        val call = request.getStarship(position.toString())
+
+        call.enqueue(object : Callback<Starship_Data> {
+            override fun onResponse(call: Call<Starship_Data>, response: Response<Starship_Data>) {
+                if (response.isSuccessful) {
+                    val resource = response.body()
+                    title_details_tv.text = resource?.name
+                    model_tv_content.text = resource?.model
+                    manufacturer_tv_content.text = resource?.manufacturer
+                    cost_in_tv_content.text = resource?.cost_in_credits.toString()
+                    length_tv_content.text = resource?.length.toString()
+                }
+                else {
+                    Log.e("myapp", "SOMETHING WENT WRONG")
+                }
+            }
+            override fun onFailure(call: Call<Starship_Data>, t: Throwable) {
+                Log.e("myapp", t.message)
+            }
+        })
     }
 }

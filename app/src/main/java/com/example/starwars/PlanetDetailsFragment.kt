@@ -1,6 +1,7 @@
 package com.example.starwars
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,18 +9,13 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_person_details.*
 import kotlinx.android.synthetic.main.fragment_person_details.title_details_tv
 import kotlinx.android.synthetic.main.fragment_planet_details.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class PlanetDetailsFragment : Fragment() {
 
     val DETAILS_TAG = "fragment_details"
-
-    //TODO retrieve data from remote
-    val planetsList = arrayListOf(
-        Planet("Alderaan", 24, 364, 1250, "temperate"),
-        Planet("Yavin IV", 25, 365, 1000, "sunny"),
-        Planet("Hoth", 26, 254, 1300, "rainy"),
-        Planet("Dagobah", 27, 300, 1265, "temperate")
-    )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_planet_details, container, false)
@@ -27,14 +23,31 @@ class PlanetDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val position = arguments?.getInt("position")
-        val planet = position?.let { planetsList.get(it) }
+        var position = arguments?.getInt("position")
+        position = position?.plus(1)        //incrementa di 1 la posizione perchè gli indici di un json array partono da 1
 
-        title_details_tv.text = planet?.name
-        rotation_tv_content.text = planet?.rotation.toString()
-        orbital_tv_content.text = planet?.orbital.toString()
-        diameter_tv_content.text = planet?.diameter.toString()
-        climate_tv_content.text = planet?.climate
 
+
+        val request = APIClient.buildService(APIInterface::class.java)
+        val call = request.getPlanet(position.toString())
+
+        call.enqueue(object : Callback<Planet_Data> {
+            override fun onResponse(call: Call<Planet_Data>, response: Response<Planet_Data>) {
+                if (response.isSuccessful) {
+                    val resource = response.body()
+                    title_details_tv.text = resource?.name
+                    rotation_tv_content.text = resource?.rotation_period.toString()
+                    orbital_tv_content.text = resource?.orbital_period.toString()
+                    diameter_tv_content.text = resource?.diameter.toString()
+                    climate_tv_content.text = resource?.climate
+                }
+                else {
+                    Log.e("myapp", "SOMETHING WENT WRONG")
+                }
+            }
+            override fun onFailure(call: Call<Planet_Data>, t: Throwable) {
+                Log.e("myapp", t.message)
+            }
+        })
     }
 }
