@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.android.synthetic.main.item.view.*
 
 
-class ItemAdapter(val items : ArrayList<String>, val context: Context?) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+class ItemAdapter(val items : MutableSet<String>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
     private var listener: (() -> Unit)? = null
     private var position: Int = 0
@@ -36,14 +36,14 @@ class ItemAdapter(val items : ArrayList<String>, val context: Context?) : Recycl
 
     // Inflates the item views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
 
         return ViewHolder(view)
     }
 
     // Binds each animal in the ArrayList to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.nameBtn?.text = items.get(position)
+        holder.nameBtn?.text = items.elementAt(position)
 
         holder.nameBtn?.setOnClickListener  {
             this.position = position

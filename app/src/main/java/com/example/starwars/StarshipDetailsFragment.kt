@@ -23,15 +23,14 @@ class StarshipDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var position = arguments?.getInt("position")
-        position = position?.plus(1)        //incrementa di 1 la posizione perchè gli indici di un json array partono da 1
-        //TODO alcuni indici mancano (es. 1, 4...)
-
+        var url = arguments?.getString("url")
+        url = url?.replace("http://swapi.dev/api/starships/", "")
+        //elimina tutto dall'url, tranne l'indice
 
         val request = APIClient.buildService(APIInterface::class.java)
-        val call = request.getStarship(position.toString())
+        val call = url?.let { request.getStarship(it) }
 
-        call.enqueue(object : Callback<Starship_Data> {
+        call?.enqueue(object : Callback<Starship_Data> {
             override fun onResponse(call: Call<Starship_Data>, response: Response<Starship_Data>) {
                 if (response.isSuccessful) {
                     val resource = response.body()

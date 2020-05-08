@@ -13,8 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
 
         if (savedInstanceState == null) {
             fragmentTransaction.add(R.id.container, MainFragment()).commit()

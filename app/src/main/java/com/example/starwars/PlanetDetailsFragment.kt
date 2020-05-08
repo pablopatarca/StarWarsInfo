@@ -23,15 +23,14 @@ class PlanetDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var position = arguments?.getInt("position")
-        position = position?.plus(1)        //incrementa di 1 la posizione perchè gli indici di un json array partono da 1
-
-
+        var url = arguments?.getString("url")
+        url = url?.replace("http://swapi.dev/api/planets/", "")
+        //elimina tutto dall'url, tranne l'indice
 
         val request = APIClient.buildService(APIInterface::class.java)
-        val call = request.getPlanet(position.toString())
+        val call = url?.let { request.getPlanet(it) }
 
-        call.enqueue(object : Callback<Planet_Data> {
+        call?.enqueue(object : Callback<Planet_Data> {
             override fun onResponse(call: Call<Planet_Data>, response: Response<Planet_Data>) {
                 if (response.isSuccessful) {
                     val resource = response.body()

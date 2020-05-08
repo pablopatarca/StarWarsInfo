@@ -39,9 +39,9 @@ class PeopleFragment : Fragment() {
                 if (response.isSuccessful) {
                     val resource = response.body()
                     val resultsList = resource?.results
-                    var peopleList = ArrayList<String>()
+                    var peopleList = LinkedHashMap<String,String>()
                     resultsList?.forEach {
-                        peopleList.add(it.name)
+                        peopleList.put(it.name, it.url)
                     }
 
                     buildRecyclerView(peopleList)
@@ -59,12 +59,12 @@ class PeopleFragment : Fragment() {
 
 
 
-    fun buildRecyclerView(peopleList: ArrayList<String>)
+    fun buildRecyclerView(peopleList: LinkedHashMap<String,String>)
     {
-        val itemAdapter = ItemAdapter(peopleList, activity?.applicationContext)
+        val itemAdapter = ItemAdapter(peopleList.keys)
         itemAdapter.setListener {
             val args = Bundle()
-            args.putInt("position", itemAdapter.getPosition())
+            args.putString("url", peopleList.get(peopleList.keys.elementAt(itemAdapter.getPosition())))
             val fragment = PersonDetailsFragment()
             fragment.arguments = args
             fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(TYPE_TAG)?.commit()

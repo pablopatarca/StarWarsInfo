@@ -23,15 +23,14 @@ class PersonDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var position = arguments?.getInt("position")
-        position = position?.plus(1)        //incrementa di 1 la posizione perchè gli indici di un json array partono da 1
-
-
+        var url = arguments?.getString("url")
+        url = url?.replace("http://swapi.dev/api/people/", "")
+        //elimina tutto dall'url, tranne l'indice
 
         val request = APIClient.buildService(APIInterface::class.java)
-        val call = request.getPerson(position.toString())
+        val call = url?.let { request.getPerson(it) }
 
-        call.enqueue(object : Callback<Person_Data> {
+        call?.enqueue(object : Callback<Person_Data> {
             override fun onResponse(call: Call<Person_Data>, response: Response<Person_Data>) {
                 if (response.isSuccessful) {
                     val resource = response.body()

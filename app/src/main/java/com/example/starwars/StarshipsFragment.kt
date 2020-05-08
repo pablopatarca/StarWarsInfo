@@ -36,9 +36,9 @@ class StarshipsFragment : Fragment() {
                 if (response.isSuccessful) {
                     val resource = response.body()
                     val resultsList = resource?.results
-                    var starshipsList = ArrayList<String>()
+                    var starshipsList = LinkedHashMap<String,String>()
                     resultsList?.forEach {
-                        starshipsList.add(it.name)
+                        starshipsList.put(it.name, it.url)
                     }
 
                     buildRecyclerView(starshipsList)
@@ -54,12 +54,12 @@ class StarshipsFragment : Fragment() {
     }
 
 
-    fun buildRecyclerView(starshipsList: ArrayList<String>)
+    fun buildRecyclerView(starshipsList: LinkedHashMap<String,String>)
     {
-        val itemAdapter = ItemAdapter(starshipsList, activity?.applicationContext)
+        val itemAdapter = ItemAdapter(starshipsList.keys)
         itemAdapter.setListener {
             val args = Bundle()
-            args.putInt("position", itemAdapter.getPosition())
+            args.putString("url", starshipsList.get(starshipsList.keys.elementAt(itemAdapter.getPosition())))
             val fragment = StarshipDetailsFragment()
             fragment.arguments = args
             fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(TYPE_TAG)?.commit()

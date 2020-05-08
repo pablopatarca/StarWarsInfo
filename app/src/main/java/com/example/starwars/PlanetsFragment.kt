@@ -35,9 +35,9 @@ class PlanetsFragment : Fragment() {
                 if (response.isSuccessful) {
                     val resource = response.body()
                     val resultsList = resource?.results
-                    var planetsList = ArrayList<String>()
+                    var planetsList = LinkedHashMap<String,String>()
                     resultsList?.forEach {
-                        planetsList.add(it.name)
+                        planetsList.put(it.name, it.url)
                     }
 
                     buildRecyclerView(planetsList)
@@ -52,12 +52,12 @@ class PlanetsFragment : Fragment() {
         })
     }
 
-    fun buildRecyclerView(planetsList: ArrayList<String>)
+    fun buildRecyclerView(planetsList: LinkedHashMap<String,String>)
     {
-        val itemAdapter = ItemAdapter(planetsList, activity?.applicationContext)
+        val itemAdapter = ItemAdapter(planetsList.keys)
         itemAdapter.setListener {
             val args = Bundle()
-            args.putInt("position", itemAdapter.getPosition())
+            args.putString("url", planetsList.get(planetsList.keys.elementAt(itemAdapter.getPosition())))
             val fragment = PlanetDetailsFragment()
             fragment.arguments = args
             fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(TYPE_TAG)?.commit()
