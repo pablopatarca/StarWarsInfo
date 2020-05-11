@@ -1,9 +1,10 @@
 package com.example.starwars
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.io.Serializable
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Planet_Data {
+class Planet_Data : Serializable {
 
     lateinit var name: String
     lateinit var rotation_period: String
