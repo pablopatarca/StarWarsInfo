@@ -28,16 +28,16 @@ class MainPresenter(fragment: MainFragment) {
 
     fun finishPeopleCall(namesList: LinkedHashMap<String,String>)
     {
-
+        fragment.startNewPeopleFragment(namesList)
     }
 
     fun finishPlanetsCall(namesList: LinkedHashMap<String,String>)
     {
-
+        fragment.startNewPlanetsFragment(namesList)
     }
 
     fun finishStarshipsCall(namesList: LinkedHashMap<String,String>)
     {
-
+        fragment.startNewStarshipsFragment(namesList)
     }
 }

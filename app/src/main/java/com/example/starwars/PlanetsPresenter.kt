@@ -13,4 +13,9 @@ class PlanetsPresenter(fragment: PlanetsFragment) {
             repository.makePlanetDetailsCall(url, planet,this)
         }
     }
+
+    fun finishPersonDetailsCall(planet: Planet_Data)
+    {
+        fragment.startNewFragment(planet)
+    }
 }

@@ -21,30 +21,14 @@ class StarshipDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var url = arguments?.getString("url")
+        val starship = arguments?.getSerializable("starship") as Starship_Data
 
-        val request = APIClient.buildService(APIInterface::class.java)
-        val call = url?.let { request.getStarship(it) }
+        title_details_tv.text = starship.name
+        model_tv_content.text = starship.model
+        manufacturer_tv_content.text = starship.manufacturer
+        cost_in_tv_content.text = starship.cost_in_credits
+        length_tv_content.text = starship.length
 
-        call?.enqueue(object : Callback<Starship_Data> {
-            override fun onResponse(call: Call<Starship_Data>, response: Response<Starship_Data>) {
-                if (response.isSuccessful) {
-                    val resource = response.body()
-                    title_details_tv.text = resource?.name
-                    model_tv_content.text = resource?.model
-                    manufacturer_tv_content.text = resource?.manufacturer
-                    cost_in_tv_content.text = resource?.cost_in_credits.toString()
-                    length_tv_content.text = resource?.length.toString()
-
-                    progress_circular.visibility = View.GONE
-                }
-                else {
-                    Log.e("myapp", "SOMETHING WENT WRONG")
-                }
-            }
-            override fun onFailure(call: Call<Starship_Data>, t: Throwable) {
-                Log.e("myapp", t.message)
-            }
-        })
+        progress_circular.visibility = View.GONE
     }
 }

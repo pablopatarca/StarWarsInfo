@@ -13,4 +13,9 @@ class PeoplePresenter(fragment: PeopleFragment) {
             repository.makePersonDetailsCall(url, person,this)
         }
     }
+
+    fun finishPersonDetailsCall(person: Person_Data)
+    {
+        fragment.startNewFragment(person)
+    }
 }

@@ -13,4 +13,9 @@ class StarshipsPresenter(fragment: StarshipsFragment) {
             repository.makeStarshipDetailsCall(url,starship,this)
         }
     }
+
+    fun finishStarshipDetailsCall(starship: Starship_Data)
+    {
+        fragment.startNewFragment(starship)
+    }
 }

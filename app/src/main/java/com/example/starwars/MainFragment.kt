@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_planets.*
 
 class MainFragment : Fragment() {
 
     val ROOT_TAG = "fragment_root"
+    val presenter = MainPresenter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -22,18 +22,18 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         people_btn.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.container, PeopleFragment())?.addToBackStack(ROOT_TAG)?.commit()
+            presenter.makePeopleCall()
         }
 
         planets_btn.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.container, PlanetsFragment())?.addToBackStack(ROOT_TAG)?.commit()
+            presenter.makePlanetsCall()
         }
+
         starships_btn.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.container, StarshipsFragment())?.addToBackStack(ROOT_TAG)?.commit()
+            presenter.makeStarshipsCall()
         }
 
     }
-
 
     fun startNewPeopleFragment(namesList: LinkedHashMap<String,String>)
     {
@@ -60,4 +60,5 @@ class MainFragment : Fragment() {
         fragment.arguments = args
         fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(ROOT_TAG)?.commit()
     }
+
 }

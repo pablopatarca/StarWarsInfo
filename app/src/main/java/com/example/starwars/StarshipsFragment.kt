@@ -15,10 +15,14 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+
+
+
 class StarshipsFragment : Fragment() {
 
     val TYPE_TAG = "fragment_type"
     var starshipsList = LinkedHashMap<String,String>()
+    val presenter = StarshipsPresenter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_starships, container, false)
@@ -26,51 +30,16 @@ class StarshipsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val namesList = arguments?.getSerializable("namesList") as LinkedHashMap<String,String>
 
-        makeCall("https://swapi.dev/api/starships/")
-    }
-
-
-    fun makeCall(next: String)
-    {
-        val request = APIClient.buildService(APIInterface::class.java)
-        val call = request.getNames(next)
-
-        call.enqueue(object : Callback<Names_Data> {
-            override fun onResponse(call: Call<Names_Data>, response: Response<Names_Data>) {
-                if (response.isSuccessful) {
-                    val resource = response.body()
-                    val resultsList = resource?.results
-                    var next = resource?.next
-                    resultsList?.forEach {
-                        starshipsList.put(it.name, it.url)
-                    }
-
-                    if(!next.isNullOrEmpty()) {
-                        makeCall(next)
-                    }
-                    else
-                        buildRecyclerView(starshipsList)
-                }
-                else {
-                    Log.e("myapp", "SOMETHING WENT WRONG")
-                }
-            }
-            override fun onFailure(call: Call<Names_Data>, t: Throwable) {
-                Log.e("myapp", t.message)
-            }
-        })
+        buildRecyclerView(namesList)
     }
 
     fun buildRecyclerView(starshipsList: LinkedHashMap<String,String>)
     {
         val itemAdapter = ItemAdapter(starshipsList.keys)
         itemAdapter.setListener {
-            val args = Bundle()
-            args.putString("url", starshipsList.get(starshipsList.keys.elementAt(itemAdapter.getPosition())))
-            val fragment = StarshipDetailsFragment()
-            fragment.arguments = args
-            fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(TYPE_TAG)?.commit()
+            presenter.makeStarshipDetailsCall(starshipsList, itemAdapter.getPosition())
         }
         recyclerView.apply {
             layoutManager = LinearLayoutManager(activity)
@@ -79,7 +48,6 @@ class StarshipsFragment : Fragment() {
 
         progress_circular.visibility = View.GONE
     }
-
 
     fun startNewFragment(starship: Starship_Data)
     {
