@@ -33,4 +33,31 @@ class MainFragment : Fragment() {
         }
 
     }
+
+
+    fun startNewPeopleFragment(namesList: LinkedHashMap<String,String>)
+    {
+        val args = Bundle()
+        args.putSerializable("namesList", namesList)
+        val fragment = PeopleFragment()
+        fragment.arguments = args
+        fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(ROOT_TAG)?.commit()
+    }
+
+    fun startNewPlanetsFragment(namesList: LinkedHashMap<String,String>)
+    {
+        val args = Bundle()
+        args.putSerializable("namesList", namesList)
+        val fragment = PlanetsFragment()
+        fragment.arguments = args
+        fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(ROOT_TAG)?.commit()
+    }
+    fun startNewStarshipsFragment(namesList: LinkedHashMap<String,String>)
+    {
+        val args = Bundle()
+        args.putSerializable("namesList", namesList)
+        val fragment = StarshipsFragment()
+        fragment.arguments = args
+        fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(ROOT_TAG)?.commit()
+    }
 }

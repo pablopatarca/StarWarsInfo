@@ -84,4 +84,14 @@ class PeopleFragment : Fragment() {
 
         progress_circular.visibility = View.GONE
     }
+
+
+    fun startNewFragment(person: Person_Data)
+    {
+        val args = Bundle()
+        args.putSerializable("person", person)
+        val fragment = PersonDetailsFragment()
+        fragment.arguments = args
+        fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(TYPE_TAG)?.commit()
+    }
 }

@@ -79,4 +79,14 @@ class StarshipsFragment : Fragment() {
 
         progress_circular.visibility = View.GONE
     }
+
+
+    fun startNewFragment(starship: Starship_Data)
+    {
+        val args = Bundle()
+        args.putSerializable("starship", starship)
+        val fragment = StarshipDetailsFragment()
+        fragment.arguments = args
+        fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(TYPE_TAG)?.commit()
+    }
 }

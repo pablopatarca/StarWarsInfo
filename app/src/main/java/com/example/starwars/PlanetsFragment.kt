@@ -78,4 +78,15 @@ class PlanetsFragment : Fragment() {
 
         progress_circular.visibility = View.GONE
     }
+
+
+
+    fun startNewFragment(planet: Planet_Data)
+    {
+        val args = Bundle()
+        args.putSerializable("planet", planet)
+        val fragment = PlanetDetailsFragment()
+        fragment.arguments = args
+        fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(TYPE_TAG)?.commit()
+    }
 }
