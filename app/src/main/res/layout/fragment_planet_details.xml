@@ -8,7 +8,7 @@
 
 
     <ProgressBar
-        android:id="@+id/progress_circular"
+        android:id="@+id/progressCircular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -25,7 +25,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/title_details_tv"
+            android:id="@+id/titleDetailsTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="50sp"
@@ -47,7 +47,7 @@
                 android:layout_marginStart="20dp">
 
                 <TextView
-                    android:id="@+id/rotation_tv"
+                    android:id="@+id/rotationTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -57,7 +57,7 @@
                     android:text="@string/rotation" />
 
                 <TextView
-                    android:id="@+id/rotation_tv_content"
+                    android:id="@+id/rotationTvContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -72,7 +72,7 @@
                 android:layout_marginStart="20dp">
 
                 <TextView
-                    android:id="@+id/orbital_tv"
+                    android:id="@+id/orbitalTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -82,7 +82,7 @@
                     android:text="@string/orbital" />
 
                 <TextView
-                    android:id="@+id/orbital_tv_content"
+                    android:id="@+id/orbitalTvContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -97,7 +97,7 @@
                 android:layout_marginStart="20dp">
 
                 <TextView
-                    android:id="@+id/diameter_tv"
+                    android:id="@+id/diameterTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -107,7 +107,7 @@
                     android:text="@string/diameter" />
 
                 <TextView
-                    android:id="@+id/diameter_tv_content"
+                    android:id="@+id/diameterTvContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -122,7 +122,7 @@
                 android:layout_marginStart="20dp">
 
                 <TextView
-                    android:id="@+id/climate_tv"
+                    android:id="@+id/climateTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -132,7 +132,7 @@
                     android:text="@string/climate" />
 
                 <TextView
-                    android:id="@+id/climate_tv_content"
+                    android:id="@+id/climateTvContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"

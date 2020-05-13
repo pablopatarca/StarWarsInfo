@@ -43,7 +43,7 @@ class StarshipsFragment : Fragment(), StarshipsContract.View {
             adapter = itemAdapter
         }
 
-        progress_circular.visibility = View.GONE
+        progressCircular.visibility = View.GONE
     }
 
     override fun startNewFragment(starship: StarshipData)

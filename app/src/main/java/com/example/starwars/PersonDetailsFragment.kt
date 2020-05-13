@@ -19,12 +19,12 @@ class PersonDetailsFragment : Fragment(), PersonDetailContract.View {
         super.onViewCreated(view, savedInstanceState)
         val person = arguments?.getSerializable("person") as PersonData
 
-        title_details_tv.text = person.name
+        titleDetailsTv.text = person.name
         height_tv_content.text = person.height
         mass_tv_content.text = person.mass
         hair_color_tv_content.text = person.hair_color
         skin_color_tv_content.text = person.skin_color
 
-        progress_circular.visibility = View.GONE
+        progressCircular.visibility = View.GONE
     }
 }

@@ -23,15 +23,15 @@ class MainFragment : Fragment(), MainContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        people_btn.setOnClickListener {
+        peopleBtn.setOnClickListener {
             presenter.makePeopleCall()
         }
 
-        planets_btn.setOnClickListener {
+        planetsBtn.setOnClickListener {
             presenter.makePlanetsCall()
         }
 
-        starships_btn.setOnClickListener {
+        starshipsBtn.setOnClickListener {
             presenter.makeStarshipsCall()
         }
 

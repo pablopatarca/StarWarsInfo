@@ -20,12 +20,12 @@ class PlanetDetailsFragment : Fragment(), PlanetDetailContract.View {
         val planet = arguments?.getSerializable("planet") as PlanetData
 
 
-        title_details_tv.text = planet.name
-        rotation_tv_content.text = planet.rotation_period
-        orbital_tv_content.text = planet.orbital_period
-        diameter_tv_content.text = planet.diameter
-        climate_tv_content.text = planet.climate
+        titleDetailsTv.text = planet.name
+        rotationTvContent.text = planet.rotation_period
+        orbitalTvContent.text = planet.orbital_period
+        diameterTvContent.text = planet.diameter
+        climateTvContent.text = planet.climate
 
-        progress_circular.visibility = View.GONE
+        progressCircular.visibility = View.GONE
     }
 }

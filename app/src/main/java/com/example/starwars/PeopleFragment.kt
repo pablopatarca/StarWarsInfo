@@ -43,7 +43,7 @@ class PeopleFragment : Fragment(), PeopleContract.View {
             adapter = itemAdapter
         }
 
-        progress_circular.visibility = View.GONE
+        progressCircular.visibility = View.GONE
     }
 
 

@@ -19,12 +19,12 @@ class StarshipDetailsFragment : Fragment(), StarshipDetailContract.View {
         super.onViewCreated(view, savedInstanceState)
         val starship = arguments?.getSerializable("starship") as StarshipData
 
-        title_details_tv.text = starship.name
-        model_tv_content.text = starship.model
-        manufacturer_tv_content.text = starship.manufacturer
-        cost_in_tv_content.text = starship.cost_in_credits
-        length_tv_content.text = starship.length
+        titleDetailsTv.text = starship.name
+        modelTvContent.text = starship.model
+        manufacturerTvContent.text = starship.manufacturer
+        costInTvContent.text = starship.cost_in_credits
+        lengthTvContent.text = starship.length
 
-        progress_circular.visibility = View.GONE
+        progressCircular.visibility = View.GONE
     }
 }
