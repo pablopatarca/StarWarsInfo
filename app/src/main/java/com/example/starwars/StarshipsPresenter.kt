@@ -12,9 +12,8 @@ class StarshipsPresenter(view: StarshipsContract.View) : StarshipsContract.Prese
     override fun makeStarshipDetailsCall(starshipsList: LinkedHashMap<String,String>, position: Int)
     {
         val url = starshipsList.get(starshipsList.keys.elementAt(position))
-        val starship = StarshipData()
         if (url != null) {
-            repository.makeStarshipDetailsCall(url,starship,this)
+            repository.makeStarshipDetailsCall(url,this)
         }
     }
 

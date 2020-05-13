@@ -11,7 +11,7 @@ class PersonData : Serializable {
     lateinit var mass: String
     lateinit var hair_color: String
     lateinit var skin_color: String
-    
+
     constructor()   {}
     constructor(name:String, height:String, mass:String, hair_color:String, skin_color:String)
     {

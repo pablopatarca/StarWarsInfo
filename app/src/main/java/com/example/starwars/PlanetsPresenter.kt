@@ -12,9 +12,8 @@ class PlanetsPresenter(view: PlanetsContract.View) : PlanetsContract.Presenter {
     override fun makePlanetDetailsCall(planetsList: LinkedHashMap<String,String>, position: Int)
     {
         val url = planetsList.get(planetsList.keys.elementAt(position))
-        val planet = PlanetData()
         if (url != null) {
-            repository.makePlanetDetailsCall(url, planet,this)
+            repository.makePlanetDetailsCall(url,this)
         }
     }
 

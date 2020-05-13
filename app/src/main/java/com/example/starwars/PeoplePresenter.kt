@@ -12,9 +12,8 @@ class PeoplePresenter(view: PeopleContract.View) : PeopleContract.Presenter {
     override fun makePersonDetailsCall(peopleList: LinkedHashMap<String,String>, position: Int)
     {
         val url = peopleList.get(peopleList.keys.elementAt(position))
-        val person = PersonData()
         if (url != null) {
-            repository.makePersonDetailsCall(url, person,this)
+            repository.makePersonDetailsCall(url, this)
         }
     }
 

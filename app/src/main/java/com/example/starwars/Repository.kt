@@ -139,7 +139,7 @@ class Repository {
     /*********************************************************************************/
     /***    Make a call to the get[Person]() method, returns Person_Data object    ***/
     /*********************************************************************************/
-    fun makePersonDetailsCall(url: String, person: PersonData, presenter: PeoplePresenter)
+    fun makePersonDetailsCall(url: String, presenter: PeoplePresenter)
     {
         val request = APIClient.buildService(APIInterface::class.java)
         val call = url.let { request.getPerson(it) }
@@ -148,11 +148,13 @@ class Repository {
             override fun onResponse(call: Call<PersonData>, response: Response<PersonData>) {
                 if (response.isSuccessful) {
                     val resource = response.body()
-                    person.name = resource?.name.toString()
-                    person.height = resource?.height.toString()
-                    person.mass = resource?.mass.toString()
-                    person.hair_color = resource?.hair_color.toString()
-                    person.skin_color = resource?.skin_color.toString()
+                    val person = PersonData(
+                        resource?.name.toString(),
+                        resource?.height.toString(),
+                        resource?.mass.toString(),
+                        resource?.hair_color.toString(),
+                        resource?.skin_color.toString()
+                    )
                     presenter.finishPersonDetailsCall(person)
                 } else {
                     Log.e("myapp", "SOMETHING WENT WRONG")
@@ -165,7 +167,7 @@ class Repository {
         })
     }
 
-    fun makePlanetDetailsCall(url: String, planet: PlanetData, presenter: PlanetsPresenter)
+    fun makePlanetDetailsCall(url: String, presenter: PlanetsPresenter)
     {
         val request = APIClient.buildService(APIInterface::class.java)
         val call = url.let { request.getPlanet(it) }
@@ -174,11 +176,13 @@ class Repository {
             override fun onResponse(call: Call<PlanetData>, response: Response<PlanetData>) {
                 if (response.isSuccessful) {
                     val resource = response.body()
-                    planet.name = resource?.name.toString()
-                    planet.rotation_period = resource?.rotation_period.toString()
-                    planet.orbital_period = resource?.orbital_period.toString()
-                    planet.diameter = resource?.diameter.toString()
-                    planet.climate = resource?.climate.toString()
+                    val planet = PlanetData(
+                        resource?.name.toString(),
+                        resource?.rotation_period.toString(),
+                        resource?.orbital_period.toString(),
+                        resource?.diameter.toString(),
+                        resource?.climate.toString()
+                    )
                     presenter.finishPersonDetailsCall(planet)
                 } else {
                     Log.e("myapp", "SOMETHING WENT WRONG")
@@ -191,7 +195,7 @@ class Repository {
         })
     }
 
-    fun makeStarshipDetailsCall(url: String, starship: StarshipData, presenter: StarshipsPresenter)
+    fun makeStarshipDetailsCall(url: String, presenter: StarshipsPresenter)
     {
         val request = APIClient.buildService(APIInterface::class.java)
         val call = url.let { request.getStarship(it) }
@@ -200,11 +204,13 @@ class Repository {
             override fun onResponse(call: Call<StarshipData>, response: Response<StarshipData>) {
                 if (response.isSuccessful) {
                     val resource = response.body()
-                    starship.name = resource?.name.toString()
-                    starship.model = resource?.model.toString()
-                    starship.manufacturer = resource?.manufacturer.toString()
-                    starship.cost_in_credits = resource?.cost_in_credits.toString()
-                    starship.length = resource?.length.toString()
+                    val starship = StarshipData(
+                        resource?.name.toString(),
+                        resource?.model.toString(),
+                        resource?.manufacturer.toString(),
+                        resource?.cost_in_credits.toString(),
+                        resource?.length.toString()
+                    )
                     presenter.finishStarshipDetailsCall(starship)
                 } else {
                     Log.e("myapp", "SOMETHING WENT WRONG")
