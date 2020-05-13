@@ -1,17 +1,10 @@
 package com.example.starwars
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class ResultsData {
-
-    lateinit var name: String
-    lateinit var url: String
-
-    constructor()   {}
-    constructor(name:String, url:String)
-    {
-        this.name = name
-        this.url = url
-    }
-}
+class ResultsData(
+    @JsonProperty("name") val name: String,
+    @JsonProperty("url") val url: String
+)

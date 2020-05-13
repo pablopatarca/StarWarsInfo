@@ -1,25 +1,14 @@
 package com.example.starwars
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 import java.io.Serializable
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class StarshipData : Serializable {
-
-    lateinit var name: String
-    lateinit var model: String
-    lateinit var manufacturer: String
-    lateinit var cost_in_credits: String
-    lateinit var length: String
-
-    constructor()   {}
-    constructor(name:String, model:String, manufacturer:String, cost_in_credits:String, length:String)
-    {
-        this.name = name
-        this.model = model
-        this.manufacturer = manufacturer
-        this.cost_in_credits = cost_in_credits
-        this.length = length
-    }
-    
-}
+class StarshipData(
+    @JsonProperty("name") val name: String,
+    @JsonProperty("model") val model: String,
+    @JsonProperty("manufacturer") val manufacturer: String,
+    @JsonProperty("cost_in_credits") val cost_in_credits: String,
+    @JsonProperty("length") val length: String
+) : Serializable
