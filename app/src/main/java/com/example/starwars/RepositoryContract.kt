@@ -14,9 +14,9 @@ interface RepositoryContract {
 
     fun makeStarshipsCall(next: String, namesList: LinkedHashMap<String,String>, presenter: MainPresenter)
 
-    fun makePersonDetailsCall(url: String, person: Person_Data, presenter: PeoplePresenter)
+    fun makePersonDetailsCall(url: String, person: PersonData, presenter: PeoplePresenter)
 
-    fun makePlanetDetailsCall(url: String, planet: Planet_Data, presenter: PlanetsPresenter)
+    fun makePlanetDetailsCall(url: String, planet: PlanetData, presenter: PlanetsPresenter)
 
-    fun makeStarshipDetailsCall(url: String, starship: Starship_Data, presenter: StarshipsPresenter)
+    fun makeStarshipDetailsCall(url: String, starship: StarshipData, presenter: StarshipsPresenter)
 }

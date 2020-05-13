@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Person_Data : Serializable {
+class PersonData : Serializable {
 
     lateinit var name: String
     lateinit var height: String

@@ -1,15 +1,11 @@
 package com.example.starwars
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_planet_details.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class PlanetDetailsFragment : Fragment(), PlanetDetailContract.View {
 
@@ -21,7 +17,7 @@ class PlanetDetailsFragment : Fragment(), PlanetDetailContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val planet = arguments?.getSerializable("planet") as Planet_Data
+        val planet = arguments?.getSerializable("planet") as PlanetData
 
 
         title_details_tv.text = planet.name

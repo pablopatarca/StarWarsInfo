@@ -12,13 +12,13 @@ class PlanetsPresenter(view: PlanetsContract.View) : PlanetsContract.Presenter {
     override fun makePlanetDetailsCall(planetsList: LinkedHashMap<String,String>, position: Int)
     {
         val url = planetsList.get(planetsList.keys.elementAt(position))
-        val planet = Planet_Data()
+        val planet = PlanetData()
         if (url != null) {
             repository.makePlanetDetailsCall(url, planet,this)
         }
     }
 
-    override fun finishPersonDetailsCall(planet: Planet_Data)
+    override fun finishPersonDetailsCall(planet: PlanetData)
     {
         view.startNewFragment(planet)
     }

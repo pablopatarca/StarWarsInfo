@@ -6,7 +6,7 @@ interface PeopleContract {
 
         fun buildRecyclerView(peopleList: LinkedHashMap<String,String>)
 
-        fun startNewFragment(person: Person_Data)
+        fun startNewFragment(person: PersonData)
 
     }
 
@@ -14,7 +14,7 @@ interface PeopleContract {
 
         fun makePersonDetailsCall(peopleList: LinkedHashMap<String,String>, position: Int)
 
-        fun finishPersonDetailsCall(person: Person_Data)
+        fun finishPersonDetailsCall(person: PersonData)
 
     }
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Starship_Data : Serializable {
+class StarshipData : Serializable {
 
     lateinit var name: String
     lateinit var model: String

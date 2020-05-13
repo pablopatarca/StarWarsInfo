@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Planet_Data : Serializable {
+class PlanetData : Serializable {
 
     lateinit var name: String
     lateinit var rotation_period: String

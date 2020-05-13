@@ -12,13 +12,13 @@ class PeoplePresenter(view: PeopleContract.View) : PeopleContract.Presenter {
     override fun makePersonDetailsCall(peopleList: LinkedHashMap<String,String>, position: Int)
     {
         val url = peopleList.get(peopleList.keys.elementAt(position))
-        val person = Person_Data()
+        val person = PersonData()
         if (url != null) {
             repository.makePersonDetailsCall(url, person,this)
         }
     }
 
-    override fun finishPersonDetailsCall(person: Person_Data)
+    override fun finishPersonDetailsCall(person: PersonData)
     {
         view.startNewFragment(person)
     }

@@ -3,13 +3,13 @@ package com.example.starwars
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Names_Data {
+class NamesData {
 
-    var results: List<Results_Data>? = null
+    var results: List<ResultsData>? = null
     var next: String? = null
 
     constructor()   {}
-    constructor(results:List<Results_Data>, next:String)
+    constructor(results:List<ResultsData>, next:String)
     {
         this.results = results
         this.next = next

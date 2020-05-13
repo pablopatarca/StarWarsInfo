@@ -12,13 +12,13 @@ class StarshipsPresenter(view: StarshipsContract.View) : StarshipsContract.Prese
     override fun makeStarshipDetailsCall(starshipsList: LinkedHashMap<String,String>, position: Int)
     {
         val url = starshipsList.get(starshipsList.keys.elementAt(position))
-        val starship = Starship_Data()
+        val starship = StarshipData()
         if (url != null) {
             repository.makeStarshipDetailsCall(url,starship,this)
         }
     }
 
-    override fun finishStarshipDetailsCall(starship: Starship_Data)
+    override fun finishStarshipDetailsCall(starship: StarshipData)
     {
         view.startNewFragment(starship)
     }

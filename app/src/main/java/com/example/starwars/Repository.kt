@@ -1,6 +1,5 @@
 package com.example.starwars
 
-import android.database.StaleDataException
 import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,8 +39,8 @@ class Repository {
         val call = request.getNames(next)
 
 
-        call.enqueue(object : Callback<Names_Data> {
-            override fun onResponse(call: Call<Names_Data>, response: Response<Names_Data>) {
+        call.enqueue(object : Callback<NamesData> {
+            override fun onResponse(call: Call<NamesData>, response: Response<NamesData>) {
                 if (response.isSuccessful) {
                     val resource = response.body()
                     val resultsList = resource?.results
@@ -62,7 +61,7 @@ class Repository {
                     Log.e("myapp", "SOMETHING WENT WRONG")
                 }
             }
-            override fun onFailure(call: Call<Names_Data>, t: Throwable) {
+            override fun onFailure(call: Call<NamesData>, t: Throwable) {
                 Log.e("myapp", t.message)
             }
         })
@@ -74,8 +73,8 @@ class Repository {
         val call = request.getNames(next)
 
 
-        call.enqueue(object : Callback<Names_Data> {
-            override fun onResponse(call: Call<Names_Data>, response: Response<Names_Data>) {
+        call.enqueue(object : Callback<NamesData> {
+            override fun onResponse(call: Call<NamesData>, response: Response<NamesData>) {
                 if (response.isSuccessful) {
                     val resource = response.body()
                     val resultsList = resource?.results
@@ -96,7 +95,7 @@ class Repository {
                     Log.e("myapp", "SOMETHING WENT WRONG")
                 }
             }
-            override fun onFailure(call: Call<Names_Data>, t: Throwable) {
+            override fun onFailure(call: Call<NamesData>, t: Throwable) {
                 Log.e("myapp", t.message)
             }
         })
@@ -108,8 +107,8 @@ class Repository {
         val call = request.getNames(next)
 
 
-        call.enqueue(object : Callback<Names_Data> {
-            override fun onResponse(call: Call<Names_Data>, response: Response<Names_Data>) {
+        call.enqueue(object : Callback<NamesData> {
+            override fun onResponse(call: Call<NamesData>, response: Response<NamesData>) {
                 if (response.isSuccessful) {
                     val resource = response.body()
                     val resultsList = resource?.results
@@ -130,7 +129,7 @@ class Repository {
                     Log.e("myapp", "SOMETHING WENT WRONG")
                 }
             }
-            override fun onFailure(call: Call<Names_Data>, t: Throwable) {
+            override fun onFailure(call: Call<NamesData>, t: Throwable) {
                 Log.e("myapp", t.message)
             }
         })
@@ -140,13 +139,13 @@ class Repository {
     /*********************************************************************************/
     /***    Make a call to the get[Person]() method, returns Person_Data object    ***/
     /*********************************************************************************/
-    fun makePersonDetailsCall(url: String, person: Person_Data, presenter: PeoplePresenter)
+    fun makePersonDetailsCall(url: String, person: PersonData, presenter: PeoplePresenter)
     {
         val request = APIClient.buildService(APIInterface::class.java)
         val call = url.let { request.getPerson(it) }
 
-        call.enqueue(object : Callback<Person_Data> {
-            override fun onResponse(call: Call<Person_Data>, response: Response<Person_Data>) {
+        call.enqueue(object : Callback<PersonData> {
+            override fun onResponse(call: Call<PersonData>, response: Response<PersonData>) {
                 if (response.isSuccessful) {
                     val resource = response.body()
                     person.name = resource?.name.toString()
@@ -160,19 +159,19 @@ class Repository {
                 }
             }
 
-            override fun onFailure(call: Call<Person_Data>, t: Throwable) {
+            override fun onFailure(call: Call<PersonData>, t: Throwable) {
                 Log.e("myapp", t.message)
             }
         })
     }
 
-    fun makePlanetDetailsCall(url: String, planet: Planet_Data, presenter: PlanetsPresenter)
+    fun makePlanetDetailsCall(url: String, planet: PlanetData, presenter: PlanetsPresenter)
     {
         val request = APIClient.buildService(APIInterface::class.java)
         val call = url.let { request.getPlanet(it) }
 
-        call.enqueue(object : Callback<Planet_Data> {
-            override fun onResponse(call: Call<Planet_Data>, response: Response<Planet_Data>) {
+        call.enqueue(object : Callback<PlanetData> {
+            override fun onResponse(call: Call<PlanetData>, response: Response<PlanetData>) {
                 if (response.isSuccessful) {
                     val resource = response.body()
                     planet.name = resource?.name.toString()
@@ -186,19 +185,19 @@ class Repository {
                 }
             }
 
-            override fun onFailure(call: Call<Planet_Data>, t: Throwable) {
+            override fun onFailure(call: Call<PlanetData>, t: Throwable) {
                 Log.e("myapp", t.message)
             }
         })
     }
 
-    fun makeStarshipDetailsCall(url: String, starship: Starship_Data, presenter: StarshipsPresenter)
+    fun makeStarshipDetailsCall(url: String, starship: StarshipData, presenter: StarshipsPresenter)
     {
         val request = APIClient.buildService(APIInterface::class.java)
         val call = url.let { request.getStarship(it) }
 
-        call.enqueue(object : Callback<Starship_Data> {
-            override fun onResponse(call: Call<Starship_Data>, response: Response<Starship_Data>) {
+        call.enqueue(object : Callback<StarshipData> {
+            override fun onResponse(call: Call<StarshipData>, response: Response<StarshipData>) {
                 if (response.isSuccessful) {
                     val resource = response.body()
                     starship.name = resource?.name.toString()
@@ -212,7 +211,7 @@ class Repository {
                 }
             }
 
-            override fun onFailure(call: Call<Starship_Data>, t: Throwable) {
+            override fun onFailure(call: Call<StarshipData>, t: Throwable) {
                 Log.e("myapp", t.message)
             }
         })
