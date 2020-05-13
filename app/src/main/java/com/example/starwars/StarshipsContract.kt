@@ -1,5 +1,9 @@
 package com.example.starwars
 
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_starships.*
+
 interface StarshipsContract {
 
     interface View : BaseView<Presenter> {

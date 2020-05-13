@@ -17,14 +17,14 @@ class PlanetDetailsFragment : Fragment(), PlanetDetailContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val planet = arguments?.getSerializable("planet") as PlanetData
+        val planet = arguments?.getSerializable("planet") as? PlanetData
 
 
-        titleDetailsTv.text = planet.name
-        rotationTvContent.text = planet.rotation_period
-        orbitalTvContent.text = planet.orbital_period
-        diameterTvContent.text = planet.diameter
-        climateTvContent.text = planet.climate
+        titleDetailsTv.text = planet?.name
+        rotationTvContent.text = planet?.rotation_period
+        orbitalTvContent.text = planet?.orbital_period
+        diameterTvContent.text = planet?.diameter
+        climateTvContent.text = planet?.climate
 
         progressCircular.visibility = View.GONE
     }

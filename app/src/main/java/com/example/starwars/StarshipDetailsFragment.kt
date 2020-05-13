@@ -17,13 +17,13 @@ class StarshipDetailsFragment : Fragment(), StarshipDetailContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val starship = arguments?.getSerializable("starship") as StarshipData
+        val starship = arguments?.getSerializable("starship") as? StarshipData
 
-        titleDetailsTv.text = starship.name
-        modelTvContent.text = starship.model
-        manufacturerTvContent.text = starship.manufacturer
-        costInTvContent.text = starship.cost_in_credits
-        lengthTvContent.text = starship.length
+        titleDetailsTv.text = starship?.name
+        modelTvContent.text = starship?.model
+        manufacturerTvContent.text = starship?.manufacturer
+        costInTvContent.text = starship?.cost_in_credits
+        lengthTvContent.text = starship?.length
 
         progressCircular.visibility = View.GONE
     }

@@ -17,13 +17,13 @@ class PersonDetailsFragment : Fragment(), PersonDetailContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val person = arguments?.getSerializable("person") as PersonData
+        val person = arguments?.getSerializable("person") as? PersonData
 
-        titleDetailsTv.text = person.name
-        height_tv_content.text = person.height
-        mass_tv_content.text = person.mass
-        hair_color_tv_content.text = person.hair_color
-        skin_color_tv_content.text = person.skin_color
+        titleDetailsTv.text = person?.name
+        height_tv_content.text = person?.height
+        mass_tv_content.text = person?.mass
+        hair_color_tv_content.text = person?.hair_color
+        skin_color_tv_content.text = person?.skin_color
 
         progressCircular.visibility = View.GONE
     }
