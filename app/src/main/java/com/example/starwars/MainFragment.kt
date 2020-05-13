@@ -1,18 +1,20 @@
 package com.example.starwars
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : Fragment() {
+import com.google.common.base.Preconditions.checkNotNull
+
+
+class MainFragment : Fragment(), MainContract.View {
 
     val ROOT_TAG = "fragment_root"
-    val presenter = MainPresenter(this)
+    var presenter = MainPresenter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -35,7 +37,11 @@ class MainFragment : Fragment() {
 
     }
 
-    fun startNewPeopleFragment(namesList: LinkedHashMap<String,String>)
+    override fun setPresenter(@NonNull presenter: MainContract.Presenter) {
+        this.presenter = checkNotNull(presenter) as MainPresenter
+    }
+
+    override fun startNewPeopleFragment(namesList: LinkedHashMap<String,String>)
     {
         val args = Bundle()
         args.putSerializable("namesList", namesList)
@@ -44,7 +50,7 @@ class MainFragment : Fragment() {
         fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(ROOT_TAG)?.commit()
     }
 
-    fun startNewPlanetsFragment(namesList: LinkedHashMap<String,String>)
+    override fun startNewPlanetsFragment(namesList: LinkedHashMap<String,String>)
     {
         val args = Bundle()
         args.putSerializable("namesList", namesList)
@@ -52,7 +58,8 @@ class MainFragment : Fragment() {
         fragment.arguments = args
         fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(ROOT_TAG)?.commit()
     }
-    fun startNewStarshipsFragment(namesList: LinkedHashMap<String,String>)
+
+    override fun startNewStarshipsFragment(namesList: LinkedHashMap<String,String>)
     {
         val args = Bundle()
         args.putSerializable("namesList", namesList)

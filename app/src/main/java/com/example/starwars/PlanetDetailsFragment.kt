@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PlanetDetailsFragment : Fragment() {
+class PlanetDetailsFragment : Fragment(), PlanetDetailContract.View {
 
     val DETAILS_TAG = "fragment_details"
 

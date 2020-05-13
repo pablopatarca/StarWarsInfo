@@ -1,11 +1,15 @@
 package com.example.starwars
 
-class PeoplePresenter(fragment: PeopleFragment) {
+class PeoplePresenter(view: PeopleContract.View) : PeopleContract.Presenter {
 
-    private val fragment = fragment         //view
+    private val view = view         //view
     private val repository = Repository()   //model
 
-    fun makePersonDetailsCall(peopleList: LinkedHashMap<String,String>, position: Int)
+    init {
+        view.setPresenter(this)
+    }
+
+    override fun makePersonDetailsCall(peopleList: LinkedHashMap<String,String>, position: Int)
     {
         val url = peopleList.get(peopleList.keys.elementAt(position))
         val person = Person_Data()
@@ -14,8 +18,8 @@ class PeoplePresenter(fragment: PeopleFragment) {
         }
     }
 
-    fun finishPersonDetailsCall(person: Person_Data)
+    override fun finishPersonDetailsCall(person: Person_Data)
     {
-        fragment.startNewFragment(person)
+        view.startNewFragment(person)
     }
 }

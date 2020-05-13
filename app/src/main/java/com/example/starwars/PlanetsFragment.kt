@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.common.base.Preconditions
 import kotlinx.android.synthetic.main.fragment_planets.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,11 +20,11 @@ import retrofit2.Response
 
 
 
-class PlanetsFragment : Fragment() {
+class PlanetsFragment : Fragment(), PlanetsContract.View {
 
     val TYPE_TAG = "fragment_type"
     var planetsList = LinkedHashMap<String,String>()
-    val presenter = PlanetsPresenter(this)
+    var presenter = PlanetsPresenter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_planets, container, false)
@@ -35,7 +37,11 @@ class PlanetsFragment : Fragment() {
         buildRecyclerView(namesList)
     }
 
-    fun buildRecyclerView(planetsList: LinkedHashMap<String,String>)
+    override fun setPresenter(@NonNull presenter: PlanetsContract.Presenter) {
+        this.presenter = Preconditions.checkNotNull(presenter) as PlanetsPresenter
+    }
+
+    override fun buildRecyclerView(planetsList: LinkedHashMap<String,String>)
     {
         val itemAdapter = ItemAdapter(planetsList.keys)
         itemAdapter.setListener {
@@ -50,7 +56,7 @@ class PlanetsFragment : Fragment() {
         progress_circular.visibility = View.GONE
     }
 
-    fun startNewFragment(planet: Planet_Data)
+    override fun startNewFragment(planet: Planet_Data)
     {
         val args = Bundle()
         args.putSerializable("planet", planet)

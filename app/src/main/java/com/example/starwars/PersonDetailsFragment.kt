@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PersonDetailsFragment : Fragment() {
+class PersonDetailsFragment : Fragment(), PersonDetailContract.View {
 
     val DETAILS_TAG = "fragment_details"
 

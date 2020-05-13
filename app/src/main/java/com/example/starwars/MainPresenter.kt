@@ -1,43 +1,47 @@
 package com.example.starwars
 
-class MainPresenter(fragment: MainFragment) {
+class MainPresenter(view: MainContract.View) : MainContract.Presenter {
 
-    private val fragment = fragment         //view
+    private val view = view         //view
     private val repository = Repository()   //model
 
-    fun makePeopleCall()
+    init {
+        view.setPresenter(this)
+    }
+
+    override fun makePeopleCall()
     {
         val next = repository.getPeopleNext()
         val namesList = LinkedHashMap<String,String>()
         repository.makePeopleCall(next, namesList, this)
     }
 
-    fun makePlanetsCall()
+    override fun makePlanetsCall()
     {
         val next = repository.getPlanetsNext()
         val namesList = LinkedHashMap<String,String>()
         repository.makePlanetsCall(next, namesList, this)
     }
 
-    fun makeStarshipsCall()
+    override fun makeStarshipsCall()
     {
         val next = repository.getStarshipsNext()
         val namesList = LinkedHashMap<String,String>()
         repository.makeStarshipsCall(next, namesList, this)
     }
 
-    fun finishPeopleCall(namesList: LinkedHashMap<String,String>)
+    override fun finishPeopleCall(namesList: LinkedHashMap<String,String>)
     {
-        fragment.startNewPeopleFragment(namesList)
+        view.startNewPeopleFragment(namesList)
     }
 
-    fun finishPlanetsCall(namesList: LinkedHashMap<String,String>)
+    override fun finishPlanetsCall(namesList: LinkedHashMap<String,String>)
     {
-        fragment.startNewPlanetsFragment(namesList)
+        view.startNewPlanetsFragment(namesList)
     }
 
-    fun finishStarshipsCall(namesList: LinkedHashMap<String,String>)
+    override fun finishStarshipsCall(namesList: LinkedHashMap<String,String>)
     {
-        fragment.startNewStarshipsFragment(namesList)
+        view.startNewStarshipsFragment(namesList)
     }
 }
