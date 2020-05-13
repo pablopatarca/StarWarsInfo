@@ -26,7 +26,6 @@ class StarshipsFragment : Fragment(), StarshipsContract.View {
         val namesList = arguments?.getSerializable("namesList") as? LinkedHashMap<String,String>
         namesList?.let {
             buildRecyclerView(namesList)
-
         }
 
     }

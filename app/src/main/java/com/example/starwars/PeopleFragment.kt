@@ -22,9 +22,10 @@ class PeopleFragment : Fragment(), PeopleContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val namesList = arguments?.getSerializable("namesList") as LinkedHashMap<String,String>
-
-        buildRecyclerView(namesList)
+        val namesList = arguments?.getSerializable("namesList") as? LinkedHashMap<String,String>
+        namesList?.let {
+            buildRecyclerView(namesList)
+        }
     }
 
     override fun setPresenter(@NonNull presenter: PeopleContract.Presenter) {
