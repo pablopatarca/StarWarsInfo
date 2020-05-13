@@ -1,9 +1,6 @@
 package com.example.starwars
 
-class PeoplePresenter(val view: PeopleContract.View) : PeopleContract.Presenter {
-
-//    private val view = view         //view
-    private val repository = Repository()   //model
+class PeoplePresenter(val view: PeopleContract.View, val repository: Repository = Repository()) : PeopleContract.Presenter {
 
     init {
         view.setPresenter(this)
