@@ -67,9 +67,8 @@ class PeopleFragment : Fragment(), PeopleContract.View {
         val dialog = AlertDialog.Builder(activity)
             .setTitle("Error")
             .setMessage(e)
-            .setPositiveButton("Close", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.dismiss()
-            })
+            .setPositiveButton("Close") { dialog, _ -> dialog.dismiss()
+            }
             .create()
             .show()
 

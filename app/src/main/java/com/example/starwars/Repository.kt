@@ -4,6 +4,10 @@ import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
+import retrofit2.http.GET
 
 class Repository {
 
@@ -150,20 +154,34 @@ class Repository {
     /*********************************************************************************/
     val request = APIClient.buildService(APIInterface::class.java)
 
+//    @Throws(Exception::class)
+//    suspend fun getPerson(url: String) : Observable<PersonData>? {
+//
+//        val call: Response<Observable<PersonData>> = request.getPerson(url).execute()
+////        val call : Response<PersonData>? = null        //to test exception throwing
+//
+//        if (call == null) {
+//            throw Exception("Call returned a null value")
+//        } else {
+//            val ret = call.body()
+//
+//            if(ret == null) {
+//                throw Exception("Call returned a null value")
+//            }
+//            else {
+//                ret.subscribeOn(Schedulers.io())
+//                return ret
+//            }
+//        }
+//    }
+
     @Throws(Exception::class)
-    suspend fun getPerson(url: String) : PersonData? {
+    suspend fun getPerson(url: String) : Observable<PersonData> {
 
-        val ret : Response<PersonData> = request.getPerson(url).execute()
-//        val ret : Response<PersonData>? = null        //to test exception throwing
-
-        if(ret == null) {
-            throw Exception("Call returned a null value")
-        }
-        else
-            return ret.body()
+        val observable = request.getPerson(url)
+        observable.subscribeOn(Schedulers.io())
+        return observable
     }
-
-
 
     fun makePersonDetailsCall(url: String, presenter: PeoplePresenter)
     {
