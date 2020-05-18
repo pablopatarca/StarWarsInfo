@@ -8,13 +8,13 @@ interface PeopleContract {
 
         fun startNewFragment(person: PersonData)
 
+        fun showError(e: String)
+
     }
 
     interface Presenter {
 
         fun makePersonDetailsCall(peopleList: LinkedHashMap<String,String>, position: Int)
-
-        fun finishPersonDetailsCall(person: PersonData)
 
     }
 }

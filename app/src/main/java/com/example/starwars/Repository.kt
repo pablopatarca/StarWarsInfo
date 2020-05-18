@@ -136,35 +136,63 @@ class Repository {
     }
 
 
+
+
+
+
+
+
+
+
+
     /*********************************************************************************/
     /***    Make a call to the get[Person]() method, returns Person_Data object    ***/
     /*********************************************************************************/
+    val request = APIClient.buildService(APIInterface::class.java)
+
+    @Throws(Exception::class)
+    suspend fun getPerson(url: String) : PersonData? {
+
+        val ret : Response<PersonData> = request.getPerson(url).execute()
+//        val ret : Response<PersonData>? = null        //to test exception throwing
+
+        if(ret == null) {
+            throw Exception("Call returned a null value")
+        }
+        else
+            return ret.body()
+    }
+
+
+
     fun makePersonDetailsCall(url: String, presenter: PeoplePresenter)
     {
-        val request = APIClient.buildService(APIInterface::class.java)
-        val call = url.let { request.getPerson(it) }
+//        val request = APIClient.buildService(APIInterface::class.java)
+//        val call = url.let { request.getPerson(it) }
 
-        call.enqueue(object : Callback<PersonData> {
-            override fun onResponse(call: Call<PersonData>, response: Response<PersonData>) {
-                if (response.isSuccessful) {
-                    val resource = response.body()
-                    val person = PersonData(
-                        resource?.name.toString(),
-                        resource?.height.toString(),
-                        resource?.mass.toString(),
-                        resource?.hair_color.toString(),
-                        resource?.skin_color.toString()
-                    )
-                    presenter.finishPersonDetailsCall(person)
-                } else {
-                    Log.e("myapp", "SOMETHING WENT WRONG")
-                }
-            }
 
-            override fun onFailure(call: Call<PersonData>, t: Throwable) {
-                Log.e("myapp", t.message)
-            }
-        })
+
+//        call.enqueue(object : Callback<PersonData> {
+//            override fun onResponse(call: Call<PersonData>, response: Response<PersonData>) {
+//                if (response.isSuccessful) {
+//                    val resource = response.body()
+//                    val person = PersonData(
+//                        resource?.name.toString(),
+//                        resource?.height.toString(),
+//                        resource?.mass.toString(),
+//                        resource?.hair_color.toString(),
+//                        resource?.skin_color.toString()
+//                    )
+//                    presenter.finishPersonDetailsCall(person)
+//                } else {
+//                    Log.e("myapp", "SOMETHING WENT WRONG")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<PersonData>, t: Throwable) {
+//                Log.e("myapp", t.message)
+//            }
+//        })
     }
 
     fun makePlanetDetailsCall(url: String, presenter: PlanetsPresenter)
