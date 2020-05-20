@@ -1,17 +1,13 @@
 package com.example.starwars
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_planet_details.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class PlanetDetailsFragment : Fragment() {
+class PlanetDetailsFragment : Fragment(), PlanetDetailContract.View {
 
     val DETAILS_TAG = "fragment_details"
 
@@ -21,30 +17,15 @@ class PlanetDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var url = arguments?.getString("url")
+        val planet = arguments?.getSerializable("planet") as? PlanetData
 
-        val request = APIClient.buildService(APIInterface::class.java)
-        val call = url?.let { request.getPlanet(it) }
 
-        call?.enqueue(object : Callback<Planet_Data> {
-            override fun onResponse(call: Call<Planet_Data>, response: Response<Planet_Data>) {
-                if (response.isSuccessful) {
-                    val resource = response.body()
-                    title_details_tv.text = resource?.name
-                    rotation_tv_content.text = resource?.rotation_period.toString()
-                    orbital_tv_content.text = resource?.orbital_period.toString()
-                    diameter_tv_content.text = resource?.diameter.toString()
-                    climate_tv_content.text = resource?.climate
+        titleDetailsTv.text = planet?.name
+        rotationTvContent.text = planet?.rotation_period
+        orbitalTvContent.text = planet?.orbital_period
+        diameterTvContent.text = planet?.diameter
+        climateTvContent.text = planet?.climate
 
-                    progress_circular.visibility = View.GONE
-                }
-                else {
-                    Log.e("myapp", "SOMETHING WENT WRONG")
-                }
-            }
-            override fun onFailure(call: Call<Planet_Data>, t: Throwable) {
-                Log.e("myapp", t.message)
-            }
-        })
+        progressCircular.visibility = View.GONE
     }
 }

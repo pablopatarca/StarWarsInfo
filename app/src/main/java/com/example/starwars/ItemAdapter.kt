@@ -27,7 +27,7 @@ class ItemAdapter(val items : MutableSet<String>) : RecyclerView.Adapter<ItemAda
 
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
-        val nameBtn = view.name_btn
+        val nameBtn = view.nameBtn
     }
 
     override fun getItemCount(): Int {

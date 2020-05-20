@@ -1,24 +1,21 @@
 package com.example.starwars
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
+import com.google.common.base.Preconditions
 import kotlinx.android.synthetic.main.fragment_planets.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
-class PlanetsFragment : Fragment() {
+class PlanetsFragment : Fragment(), PlanetsContract.View {
 
     val TYPE_TAG = "fragment_type"
     var planetsList = LinkedHashMap<String,String>()
+    var presenter = PlanetsPresenter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_planets, container, false)
@@ -26,56 +23,37 @@ class PlanetsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        makeCall("https://swapi.dev/api/planets/")
+        val namesList = arguments?.getSerializable("namesList") as? LinkedHashMap<String,String>
+        namesList?.let {
+            buildRecyclerView(namesList)
+        }
     }
 
-    fun makeCall(next: String)
-    {
-        val request = APIClient.buildService(APIInterface::class.java)
-        val call = request.getNames(next)
-
-        call.enqueue(object : Callback<Names_Data> {
-            override fun onResponse(call: Call<Names_Data>, response: Response<Names_Data>) {
-                if (response.isSuccessful) {
-                    val resource = response.body()
-                    val resultsList = resource?.results
-                    var next = resource?.next
-                    resultsList?.forEach {
-                        planetsList.put(it.name, it.url)
-                    }
-
-                    if(!next.isNullOrEmpty()) {
-                        makeCall(next)
-                    }
-                    else
-                        buildRecyclerView(planetsList)
-                }
-                else {
-                    Log.e("myapp", "SOMETHING WENT WRONG")
-                }
-            }
-            override fun onFailure(call: Call<Names_Data>, t: Throwable) {
-                Log.e("myapp", t.message)
-            }
-        })
+    override fun setPresenter(@NonNull presenter: PlanetsContract.Presenter) {
+        this.presenter = Preconditions.checkNotNull(presenter) as PlanetsPresenter
     }
 
-    fun buildRecyclerView(planetsList: LinkedHashMap<String,String>)
+    override fun buildRecyclerView(planetsList: LinkedHashMap<String,String>)
     {
         val itemAdapter = ItemAdapter(planetsList.keys)
         itemAdapter.setListener {
-            val args = Bundle()
-            args.putString("url", planetsList.get(planetsList.keys.elementAt(itemAdapter.getPosition())))
-            val fragment = PlanetDetailsFragment()
-            fragment.arguments = args
-            fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(TYPE_TAG)?.commit()
+            presenter.makePlanetDetailsCall(planetsList, itemAdapter.getPosition())
         }
+
         recyclerView.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = itemAdapter
         }
 
-        progress_circular.visibility = View.GONE
+        progressCircular.visibility = View.GONE
+    }
+
+    override fun startNewFragment(planet: PlanetData)
+    {
+        val args = Bundle()
+        args.putSerializable("planet", planet)
+        val fragment = PlanetDetailsFragment()
+        fragment.arguments = args
+        fragmentManager?.beginTransaction()?.replace(R.id.container, fragment)?.addToBackStack(TYPE_TAG)?.commit()
     }
 }

@@ -1,17 +1,13 @@
 package com.example.starwars
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_starship_details.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class StarshipDetailsFragment : Fragment() {
+class StarshipDetailsFragment : Fragment(), StarshipDetailContract.View {
 
     val DETAILS_TAG = "fragment_details"
 
@@ -21,30 +17,14 @@ class StarshipDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var url = arguments?.getString("url")
+        val starship = arguments?.getSerializable("starship") as? StarshipData
 
-        val request = APIClient.buildService(APIInterface::class.java)
-        val call = url?.let { request.getStarship(it) }
+        titleDetailsTv.text = starship?.name
+        modelTvContent.text = starship?.model
+        manufacturerTvContent.text = starship?.manufacturer
+        costInTvContent.text = starship?.cost_in_credits
+        lengthTvContent.text = starship?.length
 
-        call?.enqueue(object : Callback<Starship_Data> {
-            override fun onResponse(call: Call<Starship_Data>, response: Response<Starship_Data>) {
-                if (response.isSuccessful) {
-                    val resource = response.body()
-                    title_details_tv.text = resource?.name
-                    model_tv_content.text = resource?.model
-                    manufacturer_tv_content.text = resource?.manufacturer
-                    cost_in_tv_content.text = resource?.cost_in_credits.toString()
-                    length_tv_content.text = resource?.length.toString()
-
-                    progress_circular.visibility = View.GONE
-                }
-                else {
-                    Log.e("myapp", "SOMETHING WENT WRONG")
-                }
-            }
-            override fun onFailure(call: Call<Starship_Data>, t: Throwable) {
-                Log.e("myapp", t.message)
-            }
-        })
+        progressCircular.visibility = View.GONE
     }
 }
